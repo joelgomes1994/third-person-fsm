@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/characters/dummy/src/dummy.gltf" type="PackedScene" id=1]
+[ext_resource path="res://scenes/characters/dummy/dummy.gd" type="Script" id=2]
+[ext_resource path="res://resources/themes/default_font.tres" type="DynamicFont" id=3]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
+height = 0.55
+
+[node name="Dummy" type="KinematicBody"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.773929, -3.38295e-08 )
+shape = SubResource( 1 )
+
+[node name="LabelDebug" type="Label3D" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.7, 0 )
+billboard = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+alpha_cut = 1
+text = "Dummy"
+font = ExtResource( 3 )
+
+[node name="Visual" parent="." instance=ExtResource( 1 )]
+
+[editable path="Visual"]

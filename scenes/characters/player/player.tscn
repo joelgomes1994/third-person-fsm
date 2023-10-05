@@ -1,0 +1,219 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=1]
+[ext_resource path="res://classes/base/state_manager.gd" type="Script" id=2]
+[ext_resource path="res://scenes/characters/player/states/idle.gd" type="Script" id=3]
+[ext_resource path="res://scenes/characters/player/states/run.gd" type="Script" id=4]
+[ext_resource path="res://scenes/characters/player/states/attack_ground.gd" type="Script" id=5]
+[ext_resource path="res://scenes/characters/player/states/jump.gd" type="Script" id=6]
+[ext_resource path="res://scenes/characters/player/states/fall.gd" type="Script" id=7]
+[ext_resource path="res://scenes/characters/player/states/roll.gd" type="Script" id=8]
+[ext_resource path="res://scenes/characters/player/states/coyote.gd" type="Script" id=9]
+[ext_resource path="res://scenes/characters/player/states/attack_air.gd" type="Script" id=10]
+[ext_resource path="res://scenes/characters/player/src/target.svg" type="Texture" id=11]
+[ext_resource path="res://resources/themes/default_font.tres" type="DynamicFont" id=12]
+
+[sub_resource type="SphereShape" id=11]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.25
+height = 0.75
+
+[sub_resource type="CubeMesh" id=8]
+size = Vector3( 0.2, 0.2, 0.2 )
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+albedo_color = Color( 1, 0, 0, 0.533333 )
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 0.25
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="CapsuleMesh" id=3]
+radius = 0.25
+mid_height = 0.75
+radial_segments = 12
+rings = 4
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.862745, 0, 1, 1 )
+
+[sub_resource type="CubeMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.372549, 0.584314, 1, 1 )
+
+[sub_resource type="CylinderMesh" id=6]
+top_radius = 0.5
+bottom_radius = 0.5
+height = 0.05
+radial_segments = 24
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+flags_do_not_receive_shadows = true
+albedo_color = Color( 1, 0.929412, 0.647059, 1 )
+emission_enabled = true
+emission = Color( 1, 0.972549, 0.615686, 1 )
+emission_energy = 0.5
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="CylinderShape" id=10]
+height = 0.05
+radius = 0.5
+
+[node name="Player" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0 )
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 1 )
+jump_times = 2
+
+[node name="Hud" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="TextureRectTarget" type="TextureRect" parent="Hud"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 20, 20 )
+mouse_filter = 2
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="AreaTarget" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="AreaTarget"]
+shape = SubResource( 11 )
+
+[node name="LabelDebug" type="Label3D" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1, 0 )
+billboard = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+alpha_cut = 1
+text = "Player"
+font = ExtResource( 12 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="StateManager" type="Node" parent="."]
+script = ExtResource( 2 )
+owner_object = NodePath("..")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateManager"]
+script = ExtResource( 3 )
+state_coyote = NodePath("../Coyote")
+state_run = NodePath("../Run")
+state_jump = NodePath("../Jump")
+state_attack = NodePath("../AttackGround")
+
+[node name="Run" type="Node" parent="StateManager"]
+script = ExtResource( 4 )
+state_coyote = NodePath("../Coyote")
+state_idle = NodePath("../Idle")
+state_jump = NodePath("../Jump")
+state_roll = NodePath("../Roll")
+state_attack = NodePath("../AttackGround")
+
+[node name="Coyote" type="Node" parent="StateManager"]
+script = ExtResource( 9 )
+state_idle = NodePath("../Idle")
+state_run = NodePath("../Run")
+state_jump = NodePath("../Jump")
+state_attack = NodePath("../AttackAir")
+state_fall = NodePath("../Fall")
+
+[node name="Jump" type="Node" parent="StateManager"]
+script = ExtResource( 6 )
+state_fall = NodePath("../Fall")
+state_attack = NodePath("../AttackAir")
+
+[node name="Fall" type="Node" parent="StateManager"]
+script = ExtResource( 7 )
+state_idle = NodePath("../Idle")
+state_run = NodePath("../Run")
+state_jump = NodePath("../Jump")
+state_attack = NodePath("../AttackAir")
+
+[node name="Roll" type="Node" parent="StateManager"]
+script = ExtResource( 8 )
+state_idle = NodePath("../Idle")
+state_fall = NodePath("../Fall")
+
+[node name="AttackGround" type="Node" parent="StateManager"]
+script = ExtResource( 5 )
+state_idle = NodePath("../Idle")
+state_run = NodePath("../Run")
+state_jump = NodePath("../Jump")
+
+[node name="AttackAir" type="Node" parent="StateManager"]
+script = ExtResource( 10 )
+state_fall = NodePath("../Fall")
+
+[node name="CameraAxis" type="Position3D" parent="."]
+
+[node name="CameraSmooth" type="Position3D" parent="CameraAxis"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="CameraAxis/CameraSmooth"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -3.5 )
+
+[node name="CameraRayCast" type="RayCast" parent="CameraAxis/CameraSmooth"]
+enabled = true
+cast_to = Vector3( 0, 0, -4 )
+debug_shape_thickness = 1
+
+[node name="CameraOrigin" type="Position3D" parent="CameraAxis/CameraSmooth"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -3.5 )
+
+[node name="MeshDirection" type="MeshInstance" parent="."]
+visible = false
+cast_shadow = 0
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
+
+[node name="Visual" type="Spatial" parent="."]
+
+[node name="MeshPlayer" type="MeshInstance" parent="Visual"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 2 )
+
+[node name="MeshFace" type="MeshInstance" parent="Visual/MeshPlayer"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.2, 0.4 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
+[node name="MeshAttack" type="MeshInstance" parent="Visual/MeshPlayer"]
+transform = Transform( 1.61539, 0, 0, 0, -7.0611e-08, 1.27398, 0, -1.61539, -5.56876e-08, 0, 0.6, 0 )
+visible = false
+cast_shadow = 0
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
+
+[node name="AreaAttack" type="Area" parent="Visual/MeshPlayer/MeshAttack"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 7.10543e-15, 1, 0, 0, 0 )
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="Visual/MeshPlayer/MeshAttack/AreaAttack"]
+shape = SubResource( 10 )
+
+[connection signal="body_entered" from="AreaTarget" to="." method="_on_AreaTarget_body_entered"]
+[connection signal="body_exited" from="AreaTarget" to="." method="_on_AreaTarget_body_exited"]
+[connection signal="state_entered" from="StateManager" to="." method="_on_StateManager_state_entered"]
