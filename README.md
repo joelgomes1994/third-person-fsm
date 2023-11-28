@@ -8,7 +8,7 @@ Action RPG controls implemented with finite state machines.
 The project is developed with Godot 3.5.
 
 ## Requirements
-- [Godot 3.5.x](https://godotengine.org/download)
+- [Godot 3.5.x](https://godotengine.org/download/3.x/)
 
 ## Credits
 - Joel Gomes da Silva
