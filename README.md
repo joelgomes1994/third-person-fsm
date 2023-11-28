@@ -3,13 +3,13 @@
 </p>
 <h1 align="center">Third Person State Machine</h1>
 
-Repositório contendo um modelo de personagem em terceira pessoa utilizando
-controles de RPG de ação implementados com máquinas de estado finito.
-O projeto é desenvolvido da Godot 3.5.
+Repository containing a third-person character model using
+Action RPG controls implemented with finite state machines.
+The project is developed with Godot 3.5.
 
-## Requisitos de Desenvolvimento
+## Requirements
 - [Godot 3.5.x](https://godotengine.org/download)
 
-## Créditos
+## Credits
 - Joel Gomes da Silva
 
