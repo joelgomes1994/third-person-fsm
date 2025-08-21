@@ -5,11 +5,10 @@
 
 Repository containing a third-person character model using
 Action RPG controls implemented with finite state machines.
-The project is developed with Godot 3.5.
+The project is developed with Godot 4.4.
 
 ## Requirements
-- [Godot 3.5.x](https://godotengine.org/download/3.x/)
+- [Godot 4.4.x](https://godotengine.org/download/)
 
 ## Credits
 - Joel Gomes da Silva
-
