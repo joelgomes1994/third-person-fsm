@@ -3,16 +3,16 @@ extends PlayerStateMove
 
 
 # Variables
-export(NodePath) var state_coyote: NodePath
-export(NodePath) var state_idle: NodePath
-export(NodePath) var state_jump: NodePath
-export(NodePath) var state_roll: NodePath
-export(NodePath) var state_attack: NodePath
+@export var state_coyote: NodePath
+@export var state_idle: NodePath
+@export var state_jump: NodePath
+@export var state_roll: NodePath
+@export var state_attack: NodePath
 
 
 # State overrides
 func physics_process(delta: float) -> BaseState:
-	.physics_process(delta)
+	super.physics_process(delta)
 
 	if not player.is_on_floor():
 		return get_state(state_coyote)

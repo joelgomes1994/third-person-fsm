@@ -7,10 +7,10 @@ var _hashes := {}
 
 # Public methods
 # Toca um efeito sonoro 3D na posição do node.
-func play_sfx_3d(node: Spatial, sfx, pitch := 1.0, chance := 100) -> void:
+func play_sfx_3d(node: Node3D, sfx, pitch := 1.0, chance := 100) -> void:
 	randomize()
 
-	if int(rand_range(1, 100)) > chance:
+	if int(randf_range(1, 100)) > chance:
 		return
 
 	var path := ""
@@ -31,7 +31,7 @@ func play_sfx_3d(node: Spatial, sfx, pitch := 1.0, chance := 100) -> void:
 				_hashes[sfx_list.hash()] = last_sfx
 
 			while last_sfx.hash() == _hashes[sfx_list.hash()].hash():
-				last_sfx = sfx_list[int(rand_range(0, sfx_list.size()))]
+				last_sfx = sfx_list[int(randf_range(0, sfx_list.size()))]
 
 			_hashes[sfx_list.hash()] = last_sfx
 			path = last_sfx
@@ -41,8 +41,8 @@ func play_sfx_3d(node: Spatial, sfx, pitch := 1.0, chance := 100) -> void:
 
 	var audio_player := AudioStreamPlayer3D.new()
 	node.add_child(audio_player)
-	audio_player.pitch_scale = rand_range(pitch - 0.05, pitch + 0.05)
+	audio_player.pitch_scale = randf_range(pitch - 0.05, pitch + 0.05)
 	audio_player.stream = load(path)
 	audio_player.play()
-	yield(audio_player, "finished")
+	await audio_player.finished
 	audio_player.queue_free()

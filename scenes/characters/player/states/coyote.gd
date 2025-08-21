@@ -3,8 +3,8 @@ extends PlayerStateFall
 
 
 # Variables
-export(float, 0.0, 1.0, 0.01) var coyote_time_max := 0.2
-export(NodePath) var state_fall: NodePath
+@export var coyote_time_max := 0.2 # (float, 0.0, 1.0, 0.01)
+@export var state_fall: NodePath
 
 var _coyote_active := false
 var _coyote_time := 0.0
@@ -12,18 +12,18 @@ var _coyote_time := 0.0
 
 # State overrides
 func enter() -> void:
-	.enter()
+	super.enter()
 	_coyote_time = 0.0
 	_coyote_active = true
 
 
 func exit() -> void:
-	.exit()
+	super.exit()
 	_coyote_active = false
 
 
 func physics_process(delta: float) -> BaseState:
-	var new_state := .physics_process(delta)
+	var new_state := super.physics_process(delta)
 
 	if new_state:
 		return new_state

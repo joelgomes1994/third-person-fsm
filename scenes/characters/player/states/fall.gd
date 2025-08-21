@@ -4,15 +4,15 @@ class_name PlayerStateFall
 
 
 # Variables
-export(NodePath) var state_idle: NodePath
-export(NodePath) var state_run: NodePath
-export(NodePath) var state_jump: NodePath
-export(NodePath) var state_attack: NodePath
+@export var state_idle: NodePath
+@export var state_run: NodePath
+@export var state_jump: NodePath
+@export var state_attack: NodePath
 
 
 # State overrides
 func physics_process(delta: float) -> BaseState:
-	.physics_process(delta)
+	super.physics_process(delta)
 
 	if player.jumps_left and Input.is_action_just_pressed("jump"):
 		return get_state(state_jump)

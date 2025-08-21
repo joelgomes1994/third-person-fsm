@@ -3,20 +3,20 @@ extends PlayerStateAttack
 
 
 # Variables
-export(NodePath) var state_idle: NodePath
-export(NodePath) var state_run: NodePath
-export(NodePath) var state_jump: NodePath
+@export var state_idle: NodePath
+@export var state_run: NodePath
+@export var state_jump: NodePath
 
 
 # State overrides
 func enter() -> void:
-	.enter()
+	super.enter()
 	_process_visual(0)
 	player.play_sfx_attack()
 
 
 func physics_process(delta: float) -> BaseState:
-	.physics_process(delta)
+	super.physics_process(delta)
 
 	if _is_attacking:
 		return null

@@ -1,4 +1,4 @@
-extends KinematicBody
+extends CharacterBody3D
 
 
 # Constants
@@ -9,13 +9,13 @@ const SFX_HIT := SFX_BASE + "hit.wav"
 # Variables
 var health := 10
 
-onready var _anim_player: AnimationPlayer = find_node("AnimationPlayer")
-onready var _label_debug: Label3D = find_node("LabelDebug")
+@onready var _anim_player: AnimationPlayer = find_child("AnimationPlayer")
+@onready var _label_debug: Label3D = find_child("LabelDebug")
 
 
 # Built-in overrides
 func _ready() -> void:
-	_anim_player.play("idle_loop")
+	_anim_player.play("idle")
 	_update_label_debug()
 
 
@@ -36,9 +36,9 @@ func take_damage() -> void:
 		_anim_player.play("hit", -1, 5)
 	else:
 		_anim_player.play("die", -1, 1.5)
-		set_collision_layer_bit(2, false)
-		set_collision_mask_bit(1, false)
-		yield(_anim_player, "animation_finished")
+		set_collision_layer_value(2, false)
+		set_collision_mask_value(1, false)
+		await _anim_player.animation_finished
 		queue_free()
 
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/jump_02.wav-a9aca5f74265b699aa6ebcb20137c770.sample"
+type="AudioStreamWAV"
+uid="uid://j0gb1yslu383"
+path="res://.godot/imported/jump_02.wav-a9aca5f74265b699aa6ebcb20137c770.sample"
 
 [deps]
 
 source_file="res://scenes/characters/player/sfx/jump_02.wav"
-dest_files=[ "res://.import/jump_02.wav-a9aca5f74265b699aa6ebcb20137c770.sample" ]
+dest_files=["res://.godot/imported/jump_02.wav-a9aca5f74265b699aa6ebcb20137c770.sample"]
 
 [params]
 

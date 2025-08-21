@@ -3,18 +3,18 @@ extends PlayerStateAttack
 
 
 # Variables
-export(NodePath) var state_idle: NodePath
+@export var state_idle: NodePath
 
 
 # State overrides
 func enter() -> void:
-	.enter()
+	super.enter()
 	_process_visual(90)
 	GameHelper.play_sfx_3d(player, player.SFX_ATTACK_01)
 
 
 func physics_process(delta: float) -> BaseState:
-	.physics_process(delta)
+	super.physics_process(delta)
 
 	player.move_gravity -= player.gravity_force
 

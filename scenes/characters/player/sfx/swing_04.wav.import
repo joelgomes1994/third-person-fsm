@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/swing_04.wav-276d0848c3c8c2f6ced2fa18eef9618f.sample"
+type="AudioStreamWAV"
+uid="uid://bf7lngd6o57by"
+path="res://.godot/imported/swing_04.wav-276d0848c3c8c2f6ced2fa18eef9618f.sample"
 
 [deps]
 
 source_file="res://scenes/characters/player/sfx/swing_04.wav"
-dest_files=[ "res://.import/swing_04.wav-276d0848c3c8c2f6ced2fa18eef9618f.sample" ]
+dest_files=["res://.godot/imported/swing_04.wav-276d0848c3c8c2f6ced2fa18eef9618f.sample"]
 
 [params]
 

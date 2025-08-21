@@ -3,9 +3,9 @@ extends PlayerStateMove
 
 
 # Variables
-export(float, 0.0, 100.0, 0.1) var jump_force := 10.0
-export(NodePath) var state_fall: NodePath
-export(NodePath) var state_attack: NodePath
+@export var jump_force := 10.0 # (float, 0.0, 100.0, 0.1)
+@export var state_fall: NodePath
+@export var state_attack: NodePath
 
 
 # State overrides
@@ -18,7 +18,7 @@ func enter() -> void:
 
 
 func physics_process(delta: float) -> BaseState:
-	.physics_process(delta)
+	super.physics_process(delta)
 
 	if player.jumps_left and Input.is_action_just_pressed("jump"):
 		return self

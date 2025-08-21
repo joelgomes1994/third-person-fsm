@@ -3,7 +3,7 @@ class_name BaseState
 
 
 # Variables
-var object: Node setget _set_object
+var object: Node: set = _set_object
 
 
 # Setters

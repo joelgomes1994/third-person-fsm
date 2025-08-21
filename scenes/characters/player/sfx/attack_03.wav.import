@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/attack_03.wav-0d950853af5c30c2aefc6d71d4ba583f.sample"
+type="AudioStreamWAV"
+uid="uid://clhfwb0neya7j"
+path="res://.godot/imported/attack_03.wav-0d950853af5c30c2aefc6d71d4ba583f.sample"
 
 [deps]
 
 source_file="res://scenes/characters/player/sfx/attack_03.wav"
-dest_files=[ "res://.import/attack_03.wav-0d950853af5c30c2aefc6d71d4ba583f.sample" ]
+dest_files=["res://.godot/imported/attack_03.wav-0d950853af5c30c2aefc6d71d4ba583f.sample"]
 
 [params]
 

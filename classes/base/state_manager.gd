@@ -8,15 +8,15 @@ signal state_exited(state)
 
 
 # Variables
-export(NodePath) var owner_object: NodePath
-export(NodePath) var initial_state: NodePath
+@export var owner_object: NodePath
+@export var initial_state: NodePath
 var object: Node
 var current_state: BaseState
 
 
 # Built-in overrides
 func _init() -> void:
-	connect("child_entered_tree", self, "_on_child_entered_tree")
+	connect("child_entered_tree", Callable(self, "_on_child_entered_tree"))
 
 
 func _on_child_entered_tree(node: Node) -> void:

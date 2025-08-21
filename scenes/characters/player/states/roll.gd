@@ -3,11 +3,11 @@ extends PlayerBaseState
 
 
 # Variables
-export(float, 0.1, 5.0, 0.01) var roll_speed := 1.8
-export(float, 0.1, 1.0, 0.01) var roll_duration := 0.3
-export(float, 0.1, 1.0, 0.01) var roll_delay := 0.2
-export(NodePath) var state_idle: NodePath
-export(NodePath) var state_fall: NodePath
+@export var roll_speed := 1.8 # (float, 0.1, 5.0, 0.01)
+@export var roll_duration := 0.3 # (float, 0.1, 1.0, 0.01)
+@export var roll_delay := 0.2 # (float, 0.1, 1.0, 0.01)
+@export var state_idle: NodePath
+@export var state_fall: NodePath
 
 var _is_rolling := false
 var _in_delay := false
@@ -18,9 +18,7 @@ func enter() -> void:
 	if _in_delay:
 		return
 
-	get_tree().create_timer(roll_duration, false).connect(
-		"timeout", self, "_on_timer_rolling_timeout"
-	)
+	get_tree().create_timer(roll_duration, false).timeout.connect(_on_timer_rolling_timeout)
 	_is_rolling = true
 	_process_visual()
 	player.move_speed_multiplier = roll_speed
@@ -57,9 +55,7 @@ func _process_visual() -> void:
 func _on_timer_rolling_timeout() -> void:
 	_is_rolling = false
 
-	get_tree().create_timer(roll_delay, false).connect(
-		"timeout", self, "_on_timer_delay_timeout"
-	)
+	get_tree().create_timer(roll_delay, false).timeout.connect(_on_timer_delay_timeout)
 	_in_delay = true
 
 
